@@ -1,0 +1,19 @@
+{
+    "Main": "Головна",
+    "Companies": "Компанії",
+    "Employees": "Працівники",
+    "Total": "Всього",
+    "today": "сьогодні",
+    "for 7 days": "за 7 днів",
+    "To the list of employees": "До списку користувачів",
+    "To the list of companies": "До списку компаній",
+    "Logo": "Лого",
+    "Name":"Назва",
+    "Email":"Ел. пошта",
+    "Website":"Вебсайт",
+    "Search": "Пошук",
+    "First name": "Ім'я",
+    "Last name":"Прізвище",
+    "Company": "Компанія",
+        "Phone num":"Номер телефону"
+}
