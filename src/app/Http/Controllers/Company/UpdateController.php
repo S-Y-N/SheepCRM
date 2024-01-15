@@ -3,23 +3,19 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Country\UpdateRequest;
+use App\Http\Controllers\ImageController;
+use App\Http\Requests\Company\UpdateRequest;
 use App\Models\Company;
 use function Tinify\fromFile;
 
-\Tinify\setKey("226vKpJl5STXRVx2bTSC2SfsxSNWj2jb");
+
 class UpdateController extends Controller
 {
-    public function __invoke(UpdateRequest $request, Company $company)
+    public function __invoke(UpdateRequest $request, ImageController $image, Company $company)
     {
         $data = $request->validated();
 
-        $filePath = $request->file('logo')->path();
-        $source = fromFile($filePath);;
-
-        $compFN = time().'_'.uniqid().'_'.$request->file('logo')->getClientOriginalName();
-        $compPath = 'storage/images/'.$compFN;
-        $source->toFile(public_path($compPath));
+        $compPath = $image->uploadLogo($request);
         $data['logo'] = $compPath;
 
         $company->update($data);

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Country\StoreRequest;
+use App\Http\Controllers\ImageController;
+use App\Http\Requests\Company\StoreRequest;
 use App\Mail\Company\NewCompanyMail;
 use App\Models\Company;
 use Illuminate\Support\Facades\Mail;
@@ -12,24 +13,17 @@ use Illuminate\Support\Facades\Mail;
 
 class StoreController extends Controller
 {
-    public function __invoke(StoreRequest $request)
+    public function __invoke(StoreRequest $request, ImageController $image)
     {
-        $email = 'admin@admin.com';
+       $email = 'admin@admin.com';
 
        $requestData = $request->validated();
        $nameCompany = $request->input('name');
 
-       $filePath = $request->file('logo')->path();
+       $compPath = $image->uploadLogo($request);
 
-       $source = \Tinify\fromFile($filePath);
-
-       $compFN = time().'_'.uniqid().'_'.$request->file('logo')->getClientOriginalName();
-
-       $compPath = 'storage/images/'.$compFN;
-        //dd($compPath);
-       $source->toFile(public_path($compPath));
        $requestData['logo'] = $compPath;
-       //dd($requestData);
+
        Company::create($requestData);
        Mail::to($email)->send(new NewCompanyMail($nameCompany));
        return redirect()->route('company.index');

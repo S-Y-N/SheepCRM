@@ -12,7 +12,7 @@ class StoreRequest extends FormRequest
             'first_name'=>['required','string','max:128'],
             'last_name'=>['required','string','max:128'],
             'email'=>['required','email','unique:employees','max:128'],
-            'company_id'=>['required','int','min:1'],
+            'company_id'=>['required','exists:companies,id','int','min:1'],
             'phone'=>['required','string','unique:employees','max:32'],
         ];
     }
@@ -25,7 +25,13 @@ class StoreRequest extends FormRequest
             'email.string'=>'Пошта повинна бути строкою',
             'email.email'=>'Ваш email повиннен бути в форматі test@test.com',
             'email.unique'=>'Компанія з таким email вже існує',
-            'phone.unique'=>'Даний номер зайнятий'
+            'phone.unique'=>'Даний номер зайнятий',
+            'company_id'=>[
+                'required',
+                'int',
+                'exists:companies,id',
+                'message'=>'Компанії з таким ID не існує'
+            ]
         ];
     }
 }
