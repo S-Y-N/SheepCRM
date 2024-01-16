@@ -11,7 +11,11 @@ class StoreRequest extends FormRequest
         return [
             'name'=>['required','string','max:256'],
             'email'=>['required','email','unique:companies','max:128'],
-            'logo'=>['image','mimes:jpeg,png,jpg','max:5120'],
+            'logo'=>['required',
+                'image',
+                'mimes:jpeg,png,jpg,svg',
+                'dimensions:min_width:100,min_height=100,max_width=1000,max_height=1000',
+                'max:5120'],
             'website'=>['string','max:128']
         ];
     }
@@ -24,7 +28,14 @@ class StoreRequest extends FormRequest
             'email.string'=>'Пошта повинна бути строкою',
             'email.email'=>'Ваш email повиннен бути в форматі test@test.com',
             'email.unique'=>'Компанія з таким email вже існує',
-            'logo.max'=>"Фото важить більше 5 Мб",
+            'logo'=>[
+                'requires'=>'Виберіть фото для лого',
+                'images'=>'Файл повинен бути картинкою',
+                'mimes'=>'Файл повинен бути картинкою',
+                'dimensions'=>'Фото повинно бути не менше 100рх і не більше 1000рх',
+                'max'=>'Фото більше 5 Мб',
+
+            ],
             'website.string'=>'Назва сайту повинна бути строкою'
         ];
     }

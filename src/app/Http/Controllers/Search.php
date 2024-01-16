@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use stdClass;
 
-class SearchController extends Controller
+class Search extends Controller
 {
-    protected function handleSearch(Request $request, Builder $builder): JsonResponse
+    public function handleSearch(Request $request, Builder $builder): JsonResponse
     {
         // Отримуємо дані із запиту
         $perPage = $request->get('length');

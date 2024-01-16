@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use function Tinify\fromFile;
 use function Tinify\setKey;
 
-class ImageController
+class Image
 {
     public function uploadLogo(Request $request)
     {
